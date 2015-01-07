@@ -1,0 +1,20 @@
+*.swp
+*~
+*.crt
+*.csr
+*.key
+
+# For rpmbuild directory
+rpmbuild/build
+rpmbuild/BUILD
+rpmbuild/BUILDROOT
+rpmbuild/RPMS
+rpmbuild/SOURCES
+rpmbuild/SRPMS
+rpmbuild/projects
+rpmbuild/telep
+
+# Vagrant stuff
+.vagrant
+
+
