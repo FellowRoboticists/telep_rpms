@@ -17,6 +17,8 @@ TELEP_REPO = "git@github.com:FellowRoboticists/telep.git"
 TELEP_BRANCH = master
 TELEP_BUILD_DIR=$(BUILD_DIR)/telep
 
+TELEP_CREDENTIALS_VERSION=0.1.0
+
 # Always force the project directories to have the recipe run. Remember
 # these projects must have the correct version of their code checked out.
 .PHONY : $(WS_SERVER_DIR) $(TELEP_DIR)
@@ -112,3 +114,6 @@ telep-$(TELEP_BRANCH).tar.bz2: telep
 
 telep_rpm: telep-$(TELEP_BRANCH).tar.bz2
 	rpmbuild -ba SPECS/telep.spec
+
+telep_credentials_rpm:
+	rpmbuild -ba SPECS/telep-credentials.spec
