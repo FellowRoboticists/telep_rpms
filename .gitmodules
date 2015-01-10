@@ -1,0 +1,3 @@
+[submodule "rpmbuild/third-party/rebar"]
+	path = rpmbuild/third-party/rebar
+	url = https://github.com/basho/rebar.git

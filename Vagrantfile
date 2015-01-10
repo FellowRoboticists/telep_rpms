@@ -79,6 +79,7 @@ Vagrant.configure(2) do |config|
 
     # Add a recipe
     chef.add_recipe "yum-epel"
+    chef.add_recipe "build-essential"
     chef.add_recipe "dev_support"
     chef.add_recipe "rpmbuild"
     chef.add_recipe "erlang"
