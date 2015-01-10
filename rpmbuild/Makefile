@@ -67,7 +67,7 @@ $(REBAR):
 # Targets for telep
 #
 $(TELEP_DIR): $(PROJECT_DIR)
-	$(PULL_REPO) -b $(TELEP_BRANCH) -r $(TELEP_REPO) $(TELEP_DIR)
+	$(PULL_REPO) -b $(TELEP_BRANCH) -r $(TELEP_REPO) -s $(TELEP_DIR)
 
 $(TELEP_DIR)/third-party/ranch/ebin/ranch.beam:
 	cd $(TELEP_DIR)/third-party/ranch; make
