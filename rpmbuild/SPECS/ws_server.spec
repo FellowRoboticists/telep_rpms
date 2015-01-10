@@ -1,6 +1,6 @@
 Name:		ws_server
 Version:	0.1.2
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Provides the telep ws_server.
 
 Group:		Application
@@ -49,15 +49,27 @@ rm -rf %{buildroot}
 /opt/ws_server/ws_server.tar.gz
 %attr(-,telep,telep) /var/log/ws_server
 
+%pre
+if [[ $1 > 1 ]]
+then
+	# Get rid of the existing npm package
+	/usr/local/bin/npm uninstall -g ws_server
+fi
+
 %post
 # Attempt to have NPM install the package
 /usr/local/bin/npm install -g /opt/ws_server/ws_server.tar.gz
 
 %preun
 # Attempt to uninstall the package
-/usr/local/bin/npm uninstall -g ws_server
+if [[ $1 == 0 ]]
+then
+	/usr/local/bin/npm uninstall -g ws_server
+fi
 
 %changelog
+* Sat Jan 10 2015 Dave Sieh <dj0hnve@gmail.com> - 0.1.2-6
+- Did some state management with the npm uninstall.
 * Tue Jan 06 2015 Dave Sieh <dj0hnve@gmail.com> - 0.1.2-5
 - Corrected the command name - needed quotes.
 * Sun Jan 04 2015 Dave Sieh <dj0hnve@gmail.com> - 0.1.2-4
