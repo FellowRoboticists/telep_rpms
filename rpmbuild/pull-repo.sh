@@ -13,6 +13,7 @@ usage() {
   -h          Show this message
   -b branch   The branch to pull: defaults to 'master'
   -r repo     The github repo URL suitable for use with git clone
+  -s          Initialize submodules if repo is cloned
   -v          Make the operations verbose
 EOF
 }
@@ -20,9 +21,10 @@ EOF
 BRANCH=master
 REPO=
 REPO_PATH=
+INIT_SUBMODULES=false
 QUIET="-q"
 
-while getopts "hb:r:v" OPTION
+while getopts "hb:r:sv" OPTION
 do
   case $OPTION in
     h)
@@ -34,6 +36,9 @@ do
       ;;
     r)
       REPO=$OPTARG
+      ;;
+    s)
+      INIT_SUBMODULES=true
       ;;
     v)
       QUIET=
@@ -73,5 +78,6 @@ else
   # then checkout the requested branch/tag/commit
   git clone ${QUIET} ${REPO} ${REPO_PATH} && \
     cd ${REPO_PATH} && \
+    if [ $INIT_SUBMODULES == true ]; then git submodule init; git submodule update; fi && \
     git checkout ${QUIET} ${commit}
 fi
