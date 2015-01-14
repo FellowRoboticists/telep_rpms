@@ -1,6 +1,6 @@
 Name:		telep
-Version:	0.1.1c
-Release:	2%{?dist}
+Version:	0.1.2
+Release:	1%{?dist}
 Summary:	The Erlang-based telep server application.
 
 Group:		Robotics Application
@@ -49,6 +49,8 @@ rm -rf %{buildroot}
 %attr(-,telep,telep) /var/log/telep
 
 %changelog
+* Wed Jan 14 2015 Dave Sieh <dj0hnve@gmail.com> - 0.1.2-1
+- Fixed up web redirects and version.
 * Sat Jan 10 2015 Dave Sieh <dj0hnve@gmail.com> - 0.1.1c-2
 - Marked the telep.conf as a configuration file.
 * Sat Jan 10 2015 Dave Sieh <dj0hnve@gmail.com> - 0.1.1c-1
