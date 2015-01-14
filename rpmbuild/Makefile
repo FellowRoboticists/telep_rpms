@@ -3,6 +3,7 @@
 
 PROJECT_DIR = projects
 BUILD_DIR = $(PWD)/build
+SOURCES_DIR=$(PWD)/SOURCES
 
 # This is the command to prep a git repo for use.
 PULL_REPO = $(PWD)/pull-repo.sh
@@ -34,6 +35,9 @@ $(PROJECT_DIR):
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
 
+$(SOURCES_DIR):
+	mkdir -p $(SOURCES_DIR)
+
 #############################################################################
 # Targets for ws_server
 #
@@ -47,7 +51,7 @@ ws_server.tar.gz: $(WS_SERVER_DIR) $(WS_SERVER_BUILD_DIR)
 	rm -fr $(WS_SERVER_BUILD_DIR)/*
 	tar --exclude-vcs --directory $(PROJECT_DIR) -zcf $(WS_SERVER_BUILD_DIR)/ws_server.tar.gz ws_server
 
-ws_server-$(WS_SERVER_BRANCH).tar.bz2: $(TELEP_DIR) ws_server.tar.gz
+ws_server-$(WS_SERVER_BRANCH).tar.bz2: $(TELEP_DIR) ws_server.tar.gz $(SOURCES_DIR)
 	mkdir -p $(WS_SERVER_BUILD_DIR)/ws_server-$(WS_SERVER_BRANCH)/init
 	mkdir -p $(WS_SERVER_BUILD_DIR)/ws_server-$(WS_SERVER_BRANCH)/conf
 	cp $(TELEP_DIR)/scripts/ws_server $(WS_SERVER_BUILD_DIR)/ws_server-$(WS_SERVER_BRANCH)/init
@@ -90,6 +94,7 @@ $(TELEP_DIR)/third-party/mustache/ebin/mustache.beam:
 	cd $(TELEP_DIR)/third-party/mustache; make
 
 telep: $(TELEP_DIR) \
+	$(REBAR) \
 	third-party/rebar \
 	$(TELEP_DIR)/third-party/ranch/ebin/ranch.beam \
 	$(TELEP_DIR)/third-party/syslog/ebin/syslog.beam \
@@ -103,7 +108,7 @@ telep: $(TELEP_DIR) \
 $(TELEP_BUILD_DIR): $(BUILD_DIR)
 	mkdir -p $(TELEP_BUILD_DIR)
 
-telep-$(TELEP_BRANCH).tar.bz2: telep
+telep-$(TELEP_BRANCH).tar.bz2: telep $(SOURCES_DIR)
 	mkdir -p $(TELEP_BUILD_DIR)/telep-$(TELEP_BRANCH)/conf
 	cd $(TELEP_DIR); \
 		cp -R rel/telep $(TELEP_BUILD_DIR)/telep-$(TELEP_BRANCH); \
